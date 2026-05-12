@@ -32,7 +32,8 @@ if "answer" not in st.session_state:
     st.session_state.answer = random.choice(UMA_NAMES)
 if "guesses" not in st.session_state:
     st.session_state.guesses = []
-#generate answer
+
+
 
 #definintions 
 
@@ -53,13 +54,13 @@ def guess_check(guess, answer):
     result = ["black"] * len(guess)
     answer_chars = list(answer)
 
-    # Pass 1: Greens
+    #generate Greens
     for i in range(len(guess)):
         if i < len(answer) and guess[i] == answer[i]:
             result[i] = "green"
             answer_chars[i] = None
 
-    # Pass 2: Yellows
+    # generate Yellows
     for i in range(len(guess)):
         if result[i] == "green":
             continue
@@ -70,9 +71,8 @@ def guess_check(guess, answer):
 
     return result
 
-
-
-#displaying the box at the top of page, the answer is hidden but the number of boxes corresponds to the number of letters in the answer
+#displaying the box at the top of page, the answer is hidden but the number of boxes 
+# corresponds to the number of letters in the answer
 def display_empty_boxes(answer):
     normalized = strip_spaces(answer)
 
@@ -94,8 +94,6 @@ def display_empty_boxes(answer):
             unsafe_allow_html=True
         )
 
-
-#definitions
 
 #Creating the main display of the game, including title, instructions, and input for guesses
 st.title("Uma Wordle")
@@ -120,7 +118,7 @@ if st.button("Submit Guess"):
         # and also so that the colored boxes can be displayed properly
         matched_guess = normalized_guess[:len(normalized_answer)]
 
-        # Store ONLY truncated guess
+        # Store ONLY guesses that match length of answer
         st.session_state.guesses.append(matched_guess)
 
         # Win check ONLY compares answer length
